@@ -1,0 +1,17 @@
+logging:
+  level: INFO
+  loggers:
+    com.jp.bookmarks: DEBUG
+
+
+password: "rootroot"
+
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+    - type: https
+      port: 8443
+      keyStorePath: bookmarks.keystore
+      keyStorePassword: rootroot
+      validateCerts: false
