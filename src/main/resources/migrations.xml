@@ -32,23 +32,56 @@
             </column>
             <column name="description" type="varchar(2048)"></column>
             <column name="user_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_user_id" references="User(id)"></constraints>
+                <constraints nullable="false" foreignKeyName="fk_user_id" references="Users(id)"></constraints>
             </column>
         </createTable>
         <comment>Create bookmarks table</comment>
     </changeSet>
-    <changeSet id="3" author="lavoiejp">
+    <changeSet id="3" context="TEST" author="lavoiejp">
         <insert tableName="Users">
             <column name="id" value="1"></column>
             <column name="username" value="udemy"></column>
             <column name="password" value="password"></column>
         </insert>
+        <insert tableName="Users">
+            <column name="id" value="2"></column>
+            <column name="username" value="bobby"></column>
+            <column name="password" value="bobisgreat"></column>
+        </insert>
         <rollback>
             <delete tableName="Users">
-                <where>id=1</where>
+                <where>id IN (1,2)</where>
             </delete>
         </rollback>
-        <comment>Adding a user</comment>
+        <comment>Adding some users for testing</comment>
     </changeSet>
-
+    <changeSet id="4" context="TEST" author="lavoiejp">
+        <insert tableName="Bookmarks">
+            <column name="id" value="1"></column>
+            <column name="name" value="reddit"></column>
+            <column name="url" value="http://www.reddit.com"></column>
+            <column name="description" value="this is reddit"></column>
+            <column name="user_id" value="1"></column>
+        </insert>
+        <insert tableName="Bookmarks">
+            <column name="id" value="2"></column>
+            <column name="name" value="youtube"></column>
+            <column name="url" value="http://www.youtube.com"></column>
+            <column name="description" value="this is youtube"></column>
+            <column name="user_id" value="1"></column>
+        </insert>
+        <insert tableName="Bookmarks">
+            <column name="id" value="3"></column>
+            <column name="name" value="google"></column>
+            <column name="url" value="http://www.google.com"></column>
+            <column name="description" value="this is google"></column>
+            <column name="user_id" value="2"></column>
+        </insert>
+        <rollback>
+            <delete tableName="Bookmarks">
+                <where>id IN (1,2,3)</where>
+            </delete>
+        </rollback>
+        <comment>Adding some bookmarks for testing</comment>
+    </changeSet>
 </databaseChangeLog>
