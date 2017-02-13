@@ -6,6 +6,7 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.7.xsd">
 
     <changeSet id="1" author="lavoiejp">
+        <comment>Create user table</comment>
         <createTable tableName="Users">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"></constraints>
@@ -17,9 +18,9 @@
                 <constraints nullable="false" ></constraints>
             </column>
         </createTable>
-        <comment>Create user table</comment>
     </changeSet>
     <changeSet id="2" author="lavoiejp">
+        <comment>Create bookmarks table</comment>
         <createTable tableName="Bookmarks">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"></constraints>
@@ -35,9 +36,9 @@
                 <constraints nullable="false" foreignKeyName="fk_user_id" references="Users(id)"></constraints>
             </column>
         </createTable>
-        <comment>Create bookmarks table</comment>
     </changeSet>
     <changeSet id="3" context="TEST" author="lavoiejp">
+        <comment>Adding some users for testing</comment>
         <insert tableName="Users">
             <column name="id" value="1"></column>
             <column name="username" value="udemy"></column>
@@ -53,9 +54,9 @@
                 <where>id IN (1,2)</where>
             </delete>
         </rollback>
-        <comment>Adding some users for testing</comment>
     </changeSet>
     <changeSet id="4" context="TEST" author="lavoiejp">
+        <comment>Adding some bookmarks for testing</comment>
         <insert tableName="Bookmarks">
             <column name="id" value="1"></column>
             <column name="name" value="reddit"></column>
@@ -82,6 +83,5 @@
                 <where>id IN (1,2,3)</where>
             </delete>
         </rollback>
-        <comment>Adding some bookmarks for testing</comment>
     </changeSet>
 </databaseChangeLog>

@@ -23,8 +23,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * A unit test of class UserDAO.
@@ -102,7 +101,7 @@ public class UserDAOTest {
         }
 
         assertNotNull(users);
-        assertNotNull(users.isEmpty());
+        assertFalse(users.isEmpty());
         assertEquals(2, users.size());
 
     }
@@ -112,8 +111,6 @@ public class UserDAOTest {
      */
     @Test
     public void testFindByUsernamePassword() {
-        String expectedUsername = "user1";
-        String expectedPassword = "pwd1";
 
         Optional<User> user;
 
@@ -122,7 +119,7 @@ public class UserDAOTest {
             ManagedSessionContext.bind(session);
             tx = session.beginTransaction();
 
-            //Do something here with UserDAO
+            user = dao.findByUsernamePassword("bobby", "bobisgreat");
 
             tx.commit();
         } catch (Exception e) {
@@ -135,28 +132,9 @@ public class UserDAOTest {
             session.close();
         }
 
-        //Reopen session
-        session = SESSION_FACTORY.openSession();
-        tx = null;
-
-        //Second
-        try {
-            ManagedSessionContext.bind(session);
-            tx = session.beginTransaction();
-
-            //Do something here with UserDAO
-
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw e;
-        } finally {
-            ManagedSessionContext.unbind(SESSION_FACTORY);
-            session.close();
-        }
-
+        assertNotNull(user);
+        assertTrue(user.isPresent());
+        assertEquals(2, user.get().getId());
     }
 
 }
