@@ -15,3 +15,9 @@ server:
       keyStorePath: bookmarks.keystore
       keyStorePassword: rootroot
       validateCerts: false
+
+database:
+  driverClass: com.mysql.jdbc.Driver
+  user: bookmarks_user
+  password: 1
+  url: jdbc:mysql://localhost:3306/Boomarks

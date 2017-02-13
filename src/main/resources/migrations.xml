@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.7"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.7
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.7.xsd">
+
+    <changeSet id="1" author="lavoiejp">
+        <createTable tableName="Users">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"></constraints>
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false"></constraints>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false" ></constraints>
+            </column>
+        </createTable>
+        <comment>Create user table</comment>
+    </changeSet>
+    <changeSet id="2" author="lavoiejp">
+        <createTable tableName="Bookmarks">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"></constraints>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"></constraints>
+            </column>
+            <column name="url" type="varchar(1024)">
+                <constraints nullable="false"></constraints>
+            </column>
+            <column name="description" type="varchar(2048)"></column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_user_id" references="User(id)"></constraints>
+            </column>
+        </createTable>
+        <comment>Create bookmarks table</comment>
+    </changeSet>
+    <changeSet id="3" author="lavoiejp">
+        <insert tableName="Users">
+            <column name="id" value="1"></column>
+            <column name="username" value="udemy"></column>
+            <column name="password" value="password"></column>
+        </insert>
+        <rollback>
+            <delete tableName="Users">
+                <where>id=1</where>
+            </delete>
+        </rollback>
+        <comment>Adding a user</comment>
+    </changeSet>
+
+</databaseChangeLog>
