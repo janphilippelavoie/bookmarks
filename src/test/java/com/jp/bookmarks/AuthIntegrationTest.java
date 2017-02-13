@@ -1,12 +1,11 @@
 package com.jp.bookmarks;
 
+import io.dropwizard.Application;
+import io.dropwizard.testing.ResourceHelpers;
 import io.dropwizard.testing.junit.DropwizardAppRule;
 import org.glassfish.jersey.SslConfigurator;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.*;
 
 import javax.net.ssl.SSLContext;
 import javax.ws.rs.client.Client;
@@ -20,7 +19,7 @@ import static org.junit.Assert.assertEquals;
  * Created by lavoiejp on 11/02/17.
  */
 public class AuthIntegrationTest {
-    private static final String CONFIG_PATH = "config.yaml";
+    private static final String CONFIG_PATH = ResourceHelpers.resourceFilePath("test-config.yaml");
 
     @ClassRule
     public static final DropwizardAppRule<DropWizardTutorialConfiguration> RULE =
@@ -35,10 +34,17 @@ public class AuthIntegrationTest {
     private static final String KEYSTORE_PASSWORD = "rootroot";
 
     private static final HttpAuthenticationFeature AUTHENTICATION_FEATURE =
-            HttpAuthenticationFeature.basic("username", "rootroot");
+            HttpAuthenticationFeature.basic("bobby", "bobisgreat");
 
 
     private Client client;
+
+    @BeforeClass
+    public static void setupClass() throws Exception {
+        Application<DropWizardTutorialConfiguration> application = RULE.getApplication();
+        application.run("db", "migrate", CONFIG_PATH);
+
+    }
 
     @Before
     public void setUp() {

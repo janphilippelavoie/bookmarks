@@ -1,6 +1,7 @@
 
 package com.jp.bookmarks.db;
 
+import com.google.common.base.Optional;
 import com.jp.bookmarks.core.User;
 import liquibase.Liquibase;
 import liquibase.database.Database;
@@ -21,7 +22,7 @@ import org.junit.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
+
 
 import static org.junit.Assert.*;
 

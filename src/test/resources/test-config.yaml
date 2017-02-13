@@ -1,0 +1,23 @@
+logging:
+  level: INFO
+  loggers:
+    com.jp.bookmarks: DEBUG
+
+
+password: "rootroot"
+
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+    - type: https
+      port: 8443
+      keyStorePath: bookmarks.keystore
+      keyStorePassword: rootroot
+      validateCerts: false
+
+database:
+  driverClass: org.h2.Driver
+  user: test_user
+  password: test_password
+  url: jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1
